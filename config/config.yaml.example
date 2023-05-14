@@ -1,0 +1,62 @@
+info:
+  name: ServicePad API Test
+  version: 0.0.1
+  description: This is an API test
+
+
+web:
+  # --------------------------------- GENERAL
+  APP_NAME: ServicePad API Test
+  SECRET_KEY: "get from executing command: app misc generate-key in the enviroment"
+  DOMAIN: "localhost"
+  ADMIN_EMAIL: "example@domain.com"
+  ROOT_URL: "localhost"
+  # --------------------------------- HOSTING
+  HOST: 127.0.0.1
+  PORT: 5000
+  # --------------------------------- DATABASE
+  SQLALCHEMY_DATABASE_URI: "postgresql://postgres:postgres@localhost:5432/postgres"
+  SQLALCHEMY_TRACK_MODIFICATIONS: False
+  # --------------------------------- BCRYPT 
+  BCRYPT_LOG_ROUNDS: 4
+  TOKEN_EXPIRE_HOURS: 48
+  TOKEN_EXPIRE_MINUTES: 0
+  # --------------------------------- FLASK
+  ENV: development
+  DEBUG: True
+  TESTING: False
+  PRESERVE_CONTEXT_ON_EXCEPTION: False
+  SESSION_COOKIE_DOMAIN: "localhost.localdomain"
+  # --------------------------------- FLASK-REST-X
+  SWAGGER_UI_SHOW: True
+  SWAGGER_UI_DOC_EXPANSION: "list"
+  RESTX_MASK_SWAGGER: False
+  JSON_SORT_KEYS: False
+  # --------------------------------- FLASK-CACHING
+  CACHE_TYPE: "simple"  
+  CACHE_DEFAULT_TIMEOUT: 300 
+
+
+logging:
+  version: 1
+  formatters:
+    default: 
+      format: '[%(asctime)s] %(levelname)s in %(module)s: %(message)s'
+      datefmt: '%Y-%m-%d %H:%M:%S'
+  handlers: 
+    wsgi: 
+      class: 'logging.StreamHandler'
+      stream: 'ext://flask.logging.wsgi_errors_stream'
+      formatter: 'default'
+    file_handler: 
+      class: 'logging.handlers.TimedRotatingFileHandler'
+      level: 'ERROR'
+      filename: 'logs/app.log'
+      when: 'midnight'
+      interval: 1
+      backupCount: 7
+      formatter: 'default'
+  root: 
+    level: 'INFO'
+    handlers': ['wsgi', 'file_handler']
+  
